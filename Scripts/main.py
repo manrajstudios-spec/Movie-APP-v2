@@ -5,7 +5,10 @@ def ask_user(to_ask):
         user_input = input(to_ask)
         if user_input:
             return user_input
-        
+
+def menu():
+    pass
+      
 def sign_in():
     user_name = ask_user("Enter Your User Name \n")
     user_password = ask_user("Enter Your Password \n")
