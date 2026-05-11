@@ -1,12 +1,17 @@
+# %%
 import pandas as pd
+import numpy as np
+from Data_Loader import return_dataset
+from sklearn.metrics.pairwise import cosine_similarity
+from sentence_transformers import SentenceTransformer
 
-df= pd.read_csv("Data/movie_dataset")
+# %%
+df = pd.read_csv("/home/manraj_studios/Python/Movie-APP-v2/Data/movie_dataset")
 
-def return_dataset():
-    df = pd.read_csv("Data/movie_dataset")
-    df.genres = clean_genres(df)
-    return df
+# %%
+df.genres
 
+# %%
 def clean_genres(df:pd.DataFrame):
     df.genres = df['genres'].str.removeprefix('[{"')
     df.genres = df['genres'].str.removesuffix('"}]')
@@ -39,3 +44,10 @@ def clean_genres(df:pd.DataFrame):
 
     return df.genres
 
+# %%
+df.genres = clean_genres(df)
+
+# %%
+# %% 
+df
+# %%
