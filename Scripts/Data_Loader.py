@@ -1,41 +1,27 @@
 import pandas as pd
-
-df= pd.read_csv("Data/movie_dataset")
+import ast
 
 def return_dataset():
     df = pd.read_csv("Data/movie_dataset")
-    df.genres = clean_genres(df)
+    clean_dataset()
     return df
 
-def clean_genres(df:pd.DataFrame):
-    df.genres = df['genres'].str.removeprefix('[{"')
-    df.genres = df['genres'].str.removesuffix('"}]')
-    df.genres = df['genres'].str.split(',')
+def clean_dataset():
+    rating = df['vote_average']
+    df = df.drop(columns=['vote_average'])
+    df['rating'] = rating
 
-    def genre(lst):
-        genres = []
-        for i,g in enumerate(lst):
-            if i % 2 == 0:continue
-            genres.append(g)
+    df['production_countries'] = df['production_countries'].apply(lambda x : ast.literal_eval(x))
+    df['production_countries'] = df['production_countries'].apply(lambda x :[g['name'].strip() for g in x if 'name' in g])
 
-        return genres
-    
-    df['genres'] =df['genres'].apply(genre)
+    df['genres'] = df['genres'].apply(lambda x:ast.literal_eval(x))
+    df['genres'] = df['genres'].apply(lambda x:[g['name'].strip() for g in x if 'name' in g])
 
-    def genre_set(lst):
-        genres = []
+    df['production_companies'] = df['production_companies'].apply(lambda x : ast.literal_eval(x))
+    df['production_companies'] = df['production_companies'].apply(lambda x :[g['name'].strip() for g in x if 'name' in g])
 
-        for g in lst:
-            g = g.strip()
-            g = g.replace('"name":','')
-            g = g.replace('"','')
-            g = g.replace('"','')
-            g = g.replace('}','')
-            g = g.strip()
-            genres.append(g)
+    df['spoken_languages'] = df['spoken_languages'].apply(lambda x : ast.literal_eval(x))
+    df['spoken_languages'] = df['spoken_languages'].apply(lambda x :[g['name'].strip() for g in x if 'name' in g])
 
-        return genres
-    df['genres'] =df['genres'].apply(genre_set)
-
-    return df.genres
-
+    df['keywords'] = df['keywords'].apply(lambda x : ast.literal_eval(x))
+    df['keywords'] = df['keywords'].apply(lambda x :[g['name'].strip() for g in x if 'name' in g])

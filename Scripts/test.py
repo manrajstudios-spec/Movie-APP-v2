@@ -1,53 +1,43 @@
 # %%
 import pandas as pd
-import numpy as np
-from Data_Loader import return_dataset
-from sklearn.metrics.pairwise import cosine_similarity
+import ast
 from sentence_transformers import SentenceTransformer
 
 # %%
 df = pd.read_csv("/home/manraj_studios/Python/Movie-APP-v2/Data/movie_dataset")
 
 # %%
-df.genres
+df['production_countries'] = df['production_countries'].apply(lambda x : ast.literal_eval(x))
+df['production_countries'] = df['production_countries'].apply(lambda x :[g['name'].strip() for g in x if 'name' in g])
+
+df['genres'] = df['genres'].apply(lambda x:ast.literal_eval(x))
+df['genres'] = df['genres'].apply(lambda x:[g['name'].strip() for g in x if 'name' in g])
+
+df['production_companies'] = df['production_companies'].apply(lambda x : ast.literal_eval(x))
+df['production_companies'] = df['production_companies'].apply(lambda x :[g['name'].strip() for g in x if 'name' in g])
+
+df['spoken_languages'] = df['spoken_languages'].apply(lambda x : ast.literal_eval(x))
+df['spoken_languages'] = df['spoken_languages'].apply(lambda x :[g['name'].strip() for g in x if 'name' in g])
+
+rating = df['vote_average']
+df = df.drop(columns=['vote_average'])
+df['rating'] = rating
+
+df['keywords'] = df['keywords'].apply(lambda x : ast.literal_eval(x))
+df['keywords'] = df['keywords'].apply(lambda x :[g['name'].strip() for g in x if 'name' in g])
 
 # %%
-def clean_genres(df:pd.DataFrame):
-    df.genres = df['genres'].str.removeprefix('[{"')
-    df.genres = df['genres'].str.removesuffix('"}]')
-    df.genres = df['genres'].str.split(',')
-
-    def genre(lst):
-        genres = []
-        for i,g in enumerate(lst):
-            if i % 2 == 0:continue
-            genres.append(g)
-
-        return genres
-    
-    df['genres'] =df['genres'].apply(genre)
-
-    def genre_set(lst):
-        genres = []
-
-        for g in lst:
-            g = g.strip()
-            g = g.replace('"name":','')
-            g = g.replace('"','')
-            g = g.replace('"','')
-            g = g.replace('}','')
-            g = g.strip()
-            genres.append(g)
-
-        return genres
-    df['genres'] =df['genres'].apply(genre_set)
-
-    return df.genres
+pre = df[:10]
 
 # %%
-df.genres = clean_genres(df)
+genres = []
+
+for genre in pre.genres.to_list():
+    for g in genre:
+        if g in genres:
+            continue
+        genres.append(g)
 
 # %%
-# %% 
-df
-# %%
+
+

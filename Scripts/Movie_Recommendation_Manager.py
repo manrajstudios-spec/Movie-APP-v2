@@ -16,8 +16,12 @@ class recommendation_manager:
     def load_embeddings(self):
         return np.load("Data/embeded_overview.npy'")
 
-    def compare_keywords(self,compare):
+    def compare_keywords(self,compare,k=10):
         compare = self.get_embeded_text([compare])
         
         similarity = cosine_similarity(compare,self.overview_embed)[0]
         
+        return np.argmax(similarity)[::-1][:k]
+    
+    def previous_watches(previous_watches:pd.DataFrame):
+        previous_genres = previous_watches['genres'].to_list()
