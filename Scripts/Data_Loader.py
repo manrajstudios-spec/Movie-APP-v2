@@ -3,10 +3,10 @@ import ast
 
 def return_dataset():
     df = pd.read_csv("Data/movie_dataset")
-    clean_dataset()
+    clean_dataset(df)
     return df
 
-def clean_dataset():
+def clean_dataset(df):
     rating = df['vote_average']
     df = df.drop(columns=['vote_average'])
     df['rating'] = rating
