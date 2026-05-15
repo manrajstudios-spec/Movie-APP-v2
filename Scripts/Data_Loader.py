@@ -7,9 +7,7 @@ def return_dataset():
     return df
 
 def clean_dataset(df:pd.DataFrame):
-    rating = df['vote_average']
-    df = df.drop(columns=['vote_average'])
-    df['rating'] = rating
+    df.rename(columns={'vote_average': 'rating'}, inplace=True)
 
     df['production_countries'] = df['production_countries'].apply(lambda x : ast.literal_eval(x))
     df['production_countries'] = df['production_countries'].apply(lambda x :[g['name'].strip() for g in x if 'name' in g])
@@ -25,7 +23,10 @@ def clean_dataset(df:pd.DataFrame):
 
     df['keywords'] = df['keywords'].apply(lambda x : ast.literal_eval(x))
     df['keywords'] = df['keywords'].apply(lambda x :[g['name'].strip() for g in x if 'name' in g])
+    
+    df['genre_text'] = df['genres'].apply(lambda x : ",".join(g for g in x))
+    df['keywords_text'] = df['keywords'].apply(lambda x : ",".join(k for k in x)) 
 
-    df['story_genre_keywords'] = df['overview'] + " "+ "Genres: " + df['genre_text'] + " " + "Key Words: " + df['keywords']
+    df['story_genre_keywords'] = df['overview'] + " "+ "Genres: " + df['genre_text'] + " " + "Key Words: " + df['keywords_text']
 
     df['release_date'] = pd.to_datetime(df['release_date'])

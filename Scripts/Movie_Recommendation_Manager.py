@@ -31,23 +31,29 @@ class Recommendation_Manager:
         
         overview_smilarity = cosine_similarity(compare,self.embeded_discription)[0]
         
-        return np.argsort(overview_smilarity)[::-1][:k]
+        return self.df.iloc[np.argsort(overview_smilarity)[::-1][:k]]
     
-    def previous_watches(self,previous_watches:pd.DataFrame,k=10):
+    def previous_watches(self, previous_watches: pd.DataFrame, k=10):
         previous_watches_story_embed = self.story_embed[self.df[self.df['id'].isin(previous_watches['id'])].index]
-        watched_story_embed = self.story_embed[self.df[~self.df['id'].isin(previous_watches['id'])].index]
         
-        similarity = cosine_similarity(previous_watches_story_embed,watched_story_embed)
-        similarity = similarity.mean(axis=0) # we get how much each not watched movie is similar to watched 
+        unwatched_df = self.df[~self.df['id'].isin(previous_watches['id'])]
+        watched_story_embed = self.story_embed[unwatched_df.index]
+        
+        similarity = cosine_similarity(previous_watches_story_embed, watched_story_embed)
+        similarity = similarity.mean(axis=0)
+        
         similarity_indices = similarity.argsort()[::-1][:k]
+        
+        return unwatched_df.iloc[similarity_indices]
 
-        return self.df.iloc[similarity_indices]
-
-    def similar_to_X(self,movie,k=10):
+    def similar_to_X(self, movie, k=10):
         movie_embed = self.story_embed[self.df[self.df['id'] == movie['id']].index]
-        other_movie_embed = self.story_embed[self.df[~(self.df['id'] == movie['id'])].index]
-        similarity = cosine_similarity(movie_embed,other_movie_embed)[0]
 
+        excluded_df = self.df[~(self.df['id'] == movie['id'])]
+        excluded_embed = self.story_embed[excluded_df.index]
+
+        similarity = cosine_similarity(movie_embed, excluded_embed)[0]
         similarity_indices = similarity.argsort()[::-1][:k]
-        
-        return self.df.iloc[similarity_indices]
+
+        return excluded_df.iloc[similarity_indices]
+    

@@ -1,0 +1,31 @@
+[
+    {
+        "movie_title": "Spider-Man",
+        "movie_id": 557,
+        "user_name": [
+            "Manraj",
+            "Man"
+        ],
+        "rating": [
+            7,
+            7
+        ],
+        "review": [
+            "Great",
+            "Great"
+        ]
+    },
+    {
+        "movie_title": "Superman",
+        "movie_id": 1924,
+        "user_name": [
+            "Manraj"
+        ],
+        "rating": [
+            8
+        ],
+        "review": [
+            "Bad"
+        ]
+    }
+]

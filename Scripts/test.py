@@ -1,6 +1,7 @@
 # %%
 import pandas as pd
 import numpy as np
+import json
 import ast
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -34,7 +35,7 @@ df['genre_text'] = df['genres'].apply(lambda x : ",".join(g for g in x))
 df['keywords_text'] = df['keywords'].apply(lambda x : ",".join(k for k in x))        
 
 # %%
-df['story_genre'] = df['overview'] + " "+ "Genres: " + df['genre_text'] + " " + "Key Words: " + df['keywords']
+df['story_genre'] = df['overview'] + " "+ "Genres: " + df['genre_text'] + " " + "Key Words: " + df['keywords_text']
 
 # %%
 pre = df[df['genres'].apply(
@@ -72,4 +73,40 @@ df['release_date'] = pd.to_datetime(df['release_date'])
 df['release_date']
 # %%
 similarity.shape
+# %%
+all = []
+
+all_genres = df['genres'].apply(lambda x : [all.append(g) for g in x if g not in all])
+
+
+# %%
+len(all)
+# %%
+for a in df.itertuples():
+    print(a)
+# %%
+df.columns
+# %%
+
+embed = np.load("/home/manraj_studios/Python/Movie-APP-v2/Data/story_genre_keywords.npy")
+data = []
+with open("/home/manraj_studios/Python/Movie-APP-v2/Data/User_Data.json" , 'r') as file:
+    data = json.load(file)
+# %%
+watched = df[df['id'].isin(data[0]['watched'])]
+
+# %%
+watched_embed = embed[df[df['id'].isin(watched['id'])].index]
+not_watched_embed = embed[df[~df['id'].isin(watched['id'])].index]
+
+# %%
+not_watched_movies = df[~df['id'].isin(watched['id'])]
+
+# %%
+
+similarity = cosine_similarity(watched_embed,not_watched_embed).mean(axis=0)
+# %%
+similarity_indices = similarity.argsort()[::-1][:10]
+# %%
+df.iloc[similarity_indices]
 # %%

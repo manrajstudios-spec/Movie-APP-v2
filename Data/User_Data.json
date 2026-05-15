@@ -1,0 +1,20 @@
+[
+    {
+        "user_name": "Manraj",
+        "user_password": "$2b$12$FTuXVv6IlYEf9NJtuZ7nSOAoDgX3.in/fyVYzp/Y2Q0Q/WnAo5kjK",
+        "watched": [
+            557,
+            9613,
+            1924
+        ],
+        "watchlist": []
+    },
+    {
+        "user_name": "Man",
+        "user_password": "$2b$12$In2IQkaPg4sdqbo7tsxeeuJjrIZB0YTgxNPYRtxffthDBKwVpSrWm",
+        "watched": [
+            557
+        ],
+        "watchlist": []
+    }
+]
