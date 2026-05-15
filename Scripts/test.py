@@ -6,6 +6,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # %%
+df = pd.read_csv("/home/manraj_studios/Python/Movie-APP-v2/Data/movie_dataset")
 
 # %%
 df['production_countries'] = df['production_countries'].apply(lambda x : ast.literal_eval(x))
@@ -33,11 +34,12 @@ df['genre_text'] = df['genres'].apply(lambda x : ",".join(g for g in x))
 df['keywords_text'] = df['keywords'].apply(lambda x : ",".join(k for k in x))        
 
 # %%
-df['story_genre'] = df['overview'] + " "+ "Genres: " + df['genre_text'] + " " +"Keywords : " + df['keywords_text']
+df['story_genre'] = df['overview'] + " "+ "Genres: " + df['genre_text'] + " " + "Key Words: " + df['keywords']
 
 # %%
-pre = df[:10]
-
+pre = df[df['genres'].apply(
+    lambda x: 'Action' in x
+)].head(10)
 # %%
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
@@ -51,13 +53,23 @@ watched_story_score = model.encode(pre['story_genre'].to_list())
 df = df[~df['id'].isin(pre['id'])].copy()
 
 # %%
-similarity = cosine_similarity(watched_story_score,story_score)[0]
+similarity = cosine_similarity(watched_story_score,story_score)
+
+# %%
+similarity = similarity.mean(axis=0)
 
 # %%
 similarity_indices = np.argsort(similarity)[::-1][:10]
 
 # %%
-df.iloc[similarity_indices]
+similarity.mean(axis=0)
 
 # %%
-
+# %%
+df.index
+# %%
+df['release_date'] = pd.to_datetime(df['release_date'])
+df['release_date']
+# %%
+similarity.shape
+# %%
