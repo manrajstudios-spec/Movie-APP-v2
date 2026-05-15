@@ -1,0 +1,26 @@
+
+.name{
+    color:red;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login{
+    background-color: red;
+    font-weight: bolder;
+    font-family: fantasy;
+    top: 20px;
+    right: 30px;
+    padding: 1px 12px;
+    position: absolute;
+}
+
+.register{
+    background-color: red;
+    font-weight: bolder;
+    font-family: fantasy;
+    top: 50px;
+    right: 30px;
+    padding: 1px,10px;
+    position: absolute;
+}
+
