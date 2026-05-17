@@ -11,11 +11,11 @@ client = MongoClient(MONGO_URI)
 db = client["MovieAppV2"]
 
 users_collection = db['users']
+review_collection = db['reviews']
 
-users_collection.create_index(
-    "user_name",
-    unique=True
-)
+users_collection.create_index("user_name",unique=True)
+
+review_collection.create_index("movie_id",unique=True)
 
 print('connected')
 

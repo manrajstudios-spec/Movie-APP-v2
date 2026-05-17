@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Movie APP Login</title>
+
+        <link rel="stylesheet" href="../static/css/register.css">
+    </head>
+
+    <body>
+        <div class="top_bar">
+            <h1>
+                Movie APP
+            </h1>
+
+            {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+
+                    {% for msg in messages %}
+
+                        <p>{{ msg }}</p>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+        </div>
+        <hr>
+
+        <div class="container">
+
+        <div class="box">
+
+            <h2>Sign UP</h2>
+
+            <p>Enter your details to continue</p>
+
+            <form method="POST" action="/register">
+
+                <input
+                    type="text"
+                    placeholder="Username"
+                    name="user_name"
+                    required
+                >
+
+                <input
+                    type="password"
+                    placeholder="Password"
+                    name="user_password"
+                    required
+                >
+                <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    name="confirm_password"
+                    required
+                >
+
+                <button type="submit" name="value">
+                    Sign Up
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    </body>
+
+</html>

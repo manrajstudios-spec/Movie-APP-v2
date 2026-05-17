@@ -1,0 +1,88 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image:
+    linear-gradient(rgba(0,0,0,0.7),
+    rgba(0,0,0,0.7)),
+    url("../images/grad.jpeg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: white;
+}
+
+
+.top_bar{
+    padding: 20px 60px;
+}
+
+.top_bar h1{
+    color: red;
+    font-size: 38px;
+}
+
+
+.login-container{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box{
+    background: rgba(0,0,0,0.75);
+    padding: 50px;
+    width: 400px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+}
+
+.login-box h2{
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.login-box p{
+    color: lightgray;
+    margin-bottom: 30px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input{
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+button{
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover{
+    background-color: darkred;
+    transform: scale(1.02);
+}

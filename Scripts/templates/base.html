@@ -1,28 +1,74 @@
 <!DOCTYPE html>
+
 <html>
-    <head>
+
+<head>
     <title>Movie APP</title>
 
-    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
-    <link rel="stylesheet" href="../static/css/style.css">
-    </head>
+    <link rel="stylesheet" href="../static/css/base.css">
+</head>
 
-    <body>
+<body>
 
-        <h1 class="name">
-            Movie APP
+    <div class="navbar">
+
+        <h1 class="logo">
+            Movie App
         </h1>
 
-        <form action="/base" method="POST">
-            <button class="login" name="lr" value="login" type="submit">
+        <form method="POST" class="nav-buttons" action="/base">
+
+            <button
+                class="btn"
+                name="rl"
+                type="submit"
+                value="login"
+            >
                 Login
             </button>
 
-            <button class="register" name="lr" value="register" type="submit">
+            <button
+                class="btn"
+                name="rl"
+                type="submit"
+                value="register"
+            >
                 Register
             </button>
+
         </form>
 
-    </body>
+    </div>
+
+    <div class="hero">
+
+        <div class="content">
+
+            <h1>
+                Unlimited Movies And TV Shows & More
+            </h1>
+
+            <p>
+                Watch anytime from anywhere
+            </p>
+
+            <form method="POST" action="/base">
+
+                <button
+                    class="start-btn"
+                    name="rl"
+                    value="register"
+                    type="submit"
+                >
+                    Get Started
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
 
 </html>

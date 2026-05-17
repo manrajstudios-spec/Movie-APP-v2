@@ -3,6 +3,7 @@ import json
 from rapidfuzz import process,fuzz
 from Movie_Recommendation_Manager import Recommendation_Manager
 from Data_Loader import return_dataset
+from db import review_collection
 
 class Movie_Manager:
     def __init__(self,dataset):
@@ -23,13 +24,6 @@ class Movie_Manager:
         recs:pd.DataFrame = self.recommendation_manager.previous_watches(previous_watches,k)
         recs = recs.sort_values(by='rating',ascending=False)
         return recs
-    
-    def load_reviews(self):
-        try:
-            with open(self.movie_review_file_path,'r') as file:
-                return json.load(file)
-        except:
-            return []
 
     def filter_movies(self,genres:list,rating=5,vote=True,k=10):
         df:pd.DataFrame = self.df.copy()
@@ -53,36 +47,13 @@ class Movie_Manager:
     def similar_to_last_watched(self,previous_watches,k=10):
         return self.recommendation_manager.similar_to_X(previous_watches.iloc[-1],k)
     
+    def add_review(self,user_name,rating,r,movie_title,movie_id):      
+        movie = review_collection.find_one[{'movie_id':movie_id}]
 
-    def add_review(self,user_name,rating,r,movie_title,movie_id):
-        reviews = self.load_reviews()
-        movie_found = False
-
-        if reviews:
-            for review in reviews:
-                if review['movie_id'] == movie_id:
-                    movie_found = True
-                    found = False
-
-                    for r_user_name in review['user_name']:
-                        if r_user_name == user_name:
-                            found = True
-                            break
-
-                    if not found:
-                        review['user_name'].append(user_name)
-                        review['rating'].append(int(rating))
-                        review['review'].append(r)
-                    else:
-                        print("Already Rated")
-        
-        if not movie_found:
-            reviews.append({"movie_title":movie_title,
-                            "movie_id":int(movie_id),
-                            "user_name":[user_name],
-                            "rating":[int(rating)],
-                            'review':[r]})
+        if movie:
+            review_collection.update_one({"movie_id": movie_id},{"$push": {"reviews": {"user_name": user_name,"rating": rating,"review": r}}})
+        else:
+            review_collection.insert_one({"movie_id":movie_id,"movie_title":movie_title,"reviews":[{"user_name":user_name,"rating":int(rating),"review":r}]})         
             
-        with open(self.movie_review_file_path,'w') as file:
-            json.dump(reviews,file,indent=4)
+
 
