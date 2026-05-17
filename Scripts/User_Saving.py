@@ -56,7 +56,6 @@ def login_user(user_name,user_pass):
         if bcrypt.checkpw(user_pass.encode(),return_user(user_name,in_dict=True)['user_password'].encode()):
             return True
         
-    return False
 
 def register_user(user_name,user_pass):
     if not check_user(user_name):
