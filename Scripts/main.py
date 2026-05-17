@@ -1,6 +1,6 @@
 import pandas as pd
 import webbrowser
-from User_Saving import login_user,register_user,return_user,write_data
+from User_Saving import login_user,register_user,return_user,update_user
 from Movie_Manager import Movie_Manager
 from Data_Loader import return_dataset
 
@@ -81,12 +81,12 @@ def watch_movie(movie,user):
             if movie['id'] in user.watchlist:
                 user.watchlist.remove(int(movie['id']))
 
-            write_data(user.return_user())
+            update_user(user.return_user())
 
         elif user_input == '2':
             if int(movie['id']) not in user.watchlist:
                 user.watchlist.append(int(movie['id']))
-                write_data(user.return_user())
+                update_user(user.return_user())
 
         elif user_input == '3':
             rating = ask_user("Enter Rating you wanna give --> ")

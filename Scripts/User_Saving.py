@@ -1,70 +1,59 @@
 import bcrypt
 import json
 from User import User_Profile
-
-user_data_file = "Data/User_Data.json"
-
-def load_data():
-    try:
-        with open(user_data_file,'r') as file:
-            return json.load(file)
-    except:
-        return []
-    
-def write_data(to_write):
-    data = load_data()
-
-    if check_user(to_write['user_name']):
-        for user in data:
-            if user['user_name'] == to_write['user_name']:
-                user['watched'] = to_write['watched']
-                user['watchlist'] = to_write['watchlist']
-    else:
-        data.append(to_write)
-        
-    with open(user_data_file,'w')as file:
-        json.dump(data,file,indent=4)
+from db import users_collection
 
 def return_user(user_name,in_dict=False):
-    data = load_data()
-    if not data:
-        return False
+    user_mongo = users_collection.find_one({"user_name":user_name})
 
-    for user in data:
-        if user['user_name'] == user_name:
+    if not user_mongo : return False
 
-            u = User_Profile(user_name,user['user_password'])
-            u.watched = user['watched']
-            u.watchlist = user['watchlist']
-            
-            if in_dict:
-                return u.return_user()
-            else:
-                return u
+    user = User_Profile(user_mongo['user_name'],user_mongo['user_password'])
+
+    user.watched = user_mongo['watched']
+    user.watchlist = user_mongo['watchlist']
+    
+    if in_dict:
+        return user.return_user()
+    else:
+        return user
+
             
 def check_user(user_name):
-    data = load_data()
-  
-    for user in data:
-        if user_name == user['user_name']:
-            return True
-        
-    return False
+    user = users_collection.find_one({
+        "user_name":user_name
+    })
 
-def login_user(user_name,user_pass):
-    if check_user(user_name):
-        if bcrypt.checkpw(user_pass.encode(),return_user(user_name,in_dict=True)['user_password'].encode()):
-            return True
-        
+    return user is not None
+
+def login_user(user_name, user_pass):
+
+    user = users_collection.find_one({"user_name": user_name})
+
+    if not user:
+        return False
+
+    return bcrypt.checkpw(
+        user_pass.encode(),
+        user['user_password'].encode()
+    )
 
 def register_user(user_name,user_pass):
-    if not check_user(user_name):
-        hashed = bcrypt.hashpw(user_pass.encode(),bcrypt.gensalt())
-
-        user = User_Profile(user_name,hashed.decode())
-        user_dict = user.return_user()
-
-        write_data(user_dict)
-        return True
-    else:
+    if check_user(user_name):
         return False
+
+    hashed = bcrypt.hashpw(user_pass.encode(),bcrypt.gensalt()).decode()
+
+    user = User_Profile(user_name,hashed)
+
+    users_collection.insert_one(user.return_user())
+
+    return True
+
+def update_user(user_dict):
+    users_collection.update_one({"user_name":user_dict['user_name']},
+                                {"$set":
+                                 {
+                                     'watched':user_dict['watched'],
+                                     'watchlist':user_dict['watchlist']
+                                 }})
