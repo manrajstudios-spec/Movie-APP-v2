@@ -1,0 +1,116 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image:
+    linear-gradient(rgba(0,0,0,0.7),
+    rgba(0,0,0,0.7)),
+    url("../images/grad.jpeg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: white;
+}
+
+.top_bar{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 50px;
+}
+
+.top_bar h1{
+    color: red;
+    font-size: 35px;
+}
+
+.search_box{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding-bottom: 150px;
+    gap: 20px;
+}
+
+.search_box h1{
+    color: red;
+}
+
+.search_box p{
+    color: red;
+}
+
+.search_box input{
+    padding:15px;
+
+    border:none;
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.25s;
+}
+
+.content{
+    display: flex;
+    flex-direction:column;
+    gap: 20px;
+}
+
+.search_box input:hover{
+    transform: scale(1.02);
+    background:#e50914;
+
+    transform:scale(1.03);
+
+    box-shadow:0px 0px 14px rgba(229,9,20,0.7);
+}
+
+.search_box button{
+    width:100%;
+
+    padding:15px;
+
+    margin:12px 0;
+
+    border:none;
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.25s;
+}
+
+.search_box button:hover{
+    transform: scale(1.02);
+    background:#e50914;
+
+    transform:scale(1.03);
+
+    box-shadow:0px 0px 14px rgba(229,9,20,0.7);
+
+}

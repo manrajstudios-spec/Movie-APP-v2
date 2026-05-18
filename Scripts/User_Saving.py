@@ -57,3 +57,18 @@ def update_user(user_dict):
                                      'watched':user_dict['watched'],
                                      'watchlist':user_dict['watchlist']
                                  }})
+
+import pandas as pd
+def get_previous_watches(user_name,df:pd.DataFrame):
+    user = users_collection.find({"user_name":user_name})
+
+    ids = user["watched"]
+    watched = df.iloc[ids]
+    return watched
+
+def get_watchlist(user_name,df:pd.DataFrame):
+    user = users_collection.find({"user_name":user_name})
+
+    ids = user["watchlist"]
+    watchlist = df.iloc[ids]
+    return watchlist

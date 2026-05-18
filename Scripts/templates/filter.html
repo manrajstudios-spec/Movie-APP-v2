@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Filter</title>
+
+    <link rel="stylesheet" href="../static/css/filter.css">
+</head>
+
+<body>
+
+    <div class="filter_box">
+
+        <h1>🎬 Filter Movies</h1>
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for msg in messages %}
+
+                    <p style="color: darkred;">{{msg}}</p>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+        <form action="/base/menu/filter" method="POST">
+
+            <div class="section">
+
+                <label class="title">Minimum Rating</label>
+
+                <input
+                    type="number"
+                    name="rating"
+                    min="0"
+                    max="10"
+                    placeholder="Ex: 7.5"
+                    required
+                >
+
+            </div>
+
+            <div class="section">
+
+                <label class="title">Select Genres</label>
+
+                <div class="genres">
+
+                    <label><input type="checkbox" name="genres" value="Action"> Action</label>
+
+                    <label><input type="checkbox" name="genres" value="Adventure"> Adventure</label>
+
+                    <label><input type="checkbox" name="genres" value="Fantasy"> Fantasy</label>
+
+                    <label><input type="checkbox" name="genres" value="Science Fiction"> Science Fiction</label>
+
+                    <label><input type="checkbox" name="genres" value="Crime"> Crime</label>
+
+                    <label><input type="checkbox" name="genres" value="Drama"> Drama</label>
+
+                    <label><input type="checkbox" name="genres" value="Thriller"> Thriller</label>
+
+                    <label><input type="checkbox" name="genres" value="Animation"> Animation</label>
+
+                    <label><input type="checkbox" name="genres" value="Family"> Family</label>
+
+                    <label><input type="checkbox" name="genres" value="Western"> Western</label>
+
+                    <label><input type="checkbox" name="genres" value="Comedy"> Comedy</label>
+
+                    <label><input type="checkbox" name="genres" value="Romance"> Romance</label>
+
+                    <label><input type="checkbox" name="genres" value="Horror"> Horror</label>
+
+                    <label><input type="checkbox" name="genres" value="Mystery"> Mystery</label>
+
+                    <label><input type="checkbox" name="genres" value="History"> History</label>
+
+                    <label><input type="checkbox" name="genres" value="War"> War</label>
+
+                    <label><input type="checkbox" name="genres" value="Music"> Music</label>
+
+                    <label><input type="checkbox" name="genres" value="Documentary"> Documentary</label>
+
+                    <label><input type="checkbox" name="genres" value="Foreign"> Foreign</label>
+
+                    <label><input type="checkbox" name="genres" value="TV Movie"> TV Movie</label>
+
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn">
+                Filter Movies
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

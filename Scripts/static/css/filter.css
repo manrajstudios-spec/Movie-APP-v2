@@ -1,0 +1,127 @@
+body{
+    margin:0;
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background-image:url("../images/grad.jpeg");
+
+    background-size:cover;
+    background-position:center;
+
+    font-family:Arial, sans-serif;
+
+    color:white;
+}
+
+.filter_box{
+    width:600px;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    background:rgba(15,15,15,0.85);
+
+    backdrop-filter:blur(8px);
+
+    box-shadow:0px 0px 25px rgba(0,0,0,0.6);
+}
+
+h1{
+    text-align:center;
+
+    color:#ff2b2b;
+
+    margin-bottom:30px;
+}
+
+.section{
+    margin-bottom:30px;
+}
+
+.title{
+    display:block;
+
+    margin-bottom:15px;
+
+    font-size:18px;
+    font-weight:bold;
+}
+
+input[type="number"]{
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:16px;
+
+    outline:none;
+}
+
+.genres{
+    display:grid;
+
+    grid-template-columns:repeat(2, 1fr);
+
+    gap:12px;
+}
+
+.genres label{
+    background:rgba(255,255,255,0.05);
+
+    padding:12px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:0.2s;
+}
+
+.genres label:hover{
+    background:rgba(255,0,0,0.2);
+}
+
+input[type="checkbox"]{
+    margin-right:10px;
+}
+
+.btn{
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+    border-radius:12px;
+
+    background:#e50914;
+
+    color:white;
+
+    font-size:18px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.25s;
+}
+
+.btn:hover{
+    transform: scale(1.02);
+    background:#e50914;
+
+    transform:scale(1.03);
+
+    box-shadow:0px 0px 14px rgba(229,9,20,0.7);
+}

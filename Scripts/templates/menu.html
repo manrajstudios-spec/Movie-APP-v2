@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Movie App</title>
+
+    <link rel="stylesheet" href="../static/css/menu.css">
+</head>
+
+<body>
+
+    <div class="menu">
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for msg in messages %}
+
+                    <p>{{ msg }}</p>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+        <h1>🎬 MOVIE APP</h1>
+
+        <form method="POST" action="/menu">
+            <button class="btn" name="options" value="name">Search by Name</button>
+            <button class="btn" name="options" value="description">Search by Description</button>
+            <button class="btn" name="options" value="filter">Filter Movies</button>
+            <button class="btn" name="options" value="recs">Recommendations</button>
+            <button class="btn" name="options" value="random">Random Movie</button>
+            <button class="btn" name="options" value="surprise_me">Surprise Me</button>
+            <button class="btn" name="options" value="watchlist">My Watchlist</button>
+        </form>
+
+    </div>
+
+</body>
+
+</html>
