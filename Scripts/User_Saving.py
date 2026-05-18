@@ -72,3 +72,13 @@ def get_watchlist(user_name,df:pd.DataFrame):
     ids = user["watchlist"]
     watchlist = df.iloc[ids]
     return watchlist
+
+def add_to_watched(_id,user_name):
+    users_collection.update_one({"user_name":user_name},
+                                       {"$addToSet": {"watched": int(_id)}})
+    users_collection.update_one({"user_name": user_name},{"$pull": {"watchlist": int(_id)}})
+
+def add_to_watchlist(_id,user_name):
+    user = users_collection.update_one({"user_name":user_name},
+                                       {"$addToSet": {"watchlist": int(_id)}})
+    

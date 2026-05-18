@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>{{ movie["title"] }}</title>
+
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/watch_movie.css') }}">
+</head>
+
+<body>
+
+    <div class="overlay">
+
+        <div class="hero-section">
+
+            <img
+            class="poster"
+            src="https://image.tmdb.org/t/p/w500{{ movie['poster_path'] }}"
+            alt="{{ movie['title'] }}">
+
+            <div class="movie-info">
+
+                <h1>{{ movie["title"] }}</h1>
+
+                <p class="rating">
+                    {{ movie["rating"] }}
+                </p>
+
+                <div class="genres">
+
+                    {% for genre in movie["genres"] %}
+
+                    <span>{{ genre }}</span>
+
+                    {% endfor %}
+
+                </div>
+
+                <p class="overview">
+                    {{ movie["overview"] }}
+                </p>
+
+                <div class="buttons">
+
+                    <form method="POST" >
+                        <button class="play-btn" name="action" value="play" type="submit">
+                            Play
+                        </button>
+
+                        <button class="similar-btn" name="action" value="similar" type="submit">
+                            Similar Movies
+                        </button>
+                        <button class="similar-btn" name="action" value="watchlist" type="submit">
+                            Watch Later
+                        </button>
+                        <button class="similar-btn" name="action" value="review" type="submit">
+                            Add Review
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

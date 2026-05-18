@@ -2,7 +2,7 @@ import pandas as pd
 import ast
 
 def return_dataset():
-    df = pd.read_csv("Data/movie_dataset")
+    df = pd.read_csv("../Data/movie_dataset.csv")
     clean_dataset(df)
     return df
 
@@ -30,3 +30,4 @@ def clean_dataset(df:pd.DataFrame):
     df['story_genre_keywords'] = df['overview'] + " "+ "Genres: " + df['genre_text'] + " " + "Key Words: " + df['keywords_text']
 
     df['release_date'] = pd.to_datetime(df['release_date'])
+

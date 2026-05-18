@@ -4,12 +4,20 @@ from rapidfuzz import process,fuzz
 from Movie_Recommendation_Manager import Recommendation_Manager
 from Data_Loader import return_dataset
 from db import review_collection
+import os
+import requests
+from dotenv import load_dotenv
+
 
 class Movie_Manager:
+    load_dotenv()
+
+    TMDB_API_KEY = os.getenv("TMDB_API_KEY")
+
     def __init__(self,dataset):
         self.df = dataset
         self.recommendation_manager = Recommendation_Manager(self.df)
-        self.movie_review_file_path = "Data/movie_reviews.json"
+        self.tmdb_api_key = self.TMDB_API_KEY
 
     def search_by_movie_name(self,movie_name,k=5):
         names = process.extract(movie_name,self.df['title'],limit=k)
@@ -55,5 +63,19 @@ class Movie_Manager:
         else:
             review_collection.insert_one({"movie_id":movie_id,"movie_title":movie_title,"reviews":[{"user_name":user_name,"rating":int(rating),"review":r}]})         
             
+    def get_movie_poster(self, movie_id):
 
+        url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={self.tmdb_api_key}"
+
+        response = requests.get(url)
+
+        data = response.json()
+
+        poster_path = data.get("poster_path")
+
+        if poster_path:
+            return f"https://image.tmdb.org/t/p/w500{poster_path}"
+
+        return None
+    
 

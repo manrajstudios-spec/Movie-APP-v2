@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/list_movies.css') }}">
+</head>
+
+<body>
+
+    <div class="overlay">
+
+        <h1>Movies</h1>
+
+        <div class="movie-container">
+
+            <form method="POST">
+            {% for movie in movies %}
+
+            <div class="movie-card">
+                <img
+                src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}"
+                alt="{{ movie.title }}">
+                
+                <h3>{{ movie.title }}</h3>
+                <button type="submit" value="{{ movie.id }}" name="movie" >Play</button>
+            </div>
+
+            {% endfor %}
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

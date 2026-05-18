@@ -1,0 +1,167 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+
+    background-image:url("../images/grad.jpeg");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+
+    color:white;
+}
+
+.overlay{
+    min-height:100vh;
+
+    background:rgba(0,0,0,0.82);
+
+    padding:60px;
+}
+
+/* main layout */
+
+.hero-section{
+    display:flex;
+
+    gap:60px;
+
+    align-items:center;
+
+    max-width:1400px;
+
+    margin:auto;
+
+    background:rgba(255,255,255,0.05);
+
+    padding:50px;
+
+    border-radius:25px;
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:0 0 30px rgba(0,0,0,0.5);
+}
+
+/* poster */
+
+.poster{
+    width:400px;
+
+    border-radius:20px;
+
+    object-fit:cover;
+
+    box-shadow:0 0 25px rgba(0,0,0,0.6);
+}
+
+/* info section */
+
+.movie-info{
+    flex:1;
+}
+
+.movie-info h1{
+    font-size:64px;
+
+    margin-bottom:20px;
+}
+
+.rating{
+    font-size:28px;
+
+    color:#ffd700;
+
+    margin-bottom:25px;
+}
+
+/* genres */
+
+.genres{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin-bottom:30px;
+}
+
+.genres span{
+    background:#e50914;
+
+    padding:12px 20px;
+
+    border-radius:30px;
+
+    font-size:15px;
+
+    font-weight:bold;
+}
+
+/* overview */
+
+.overview{
+    font-size:20px;
+
+    line-height:1.9;
+
+    color:#ddd;
+
+    margin-bottom:45px;
+}
+
+/* buttons */
+
+.buttons{
+    display:flex;
+
+    gap:20px;
+}
+
+button{
+    padding:18px 34px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.play-btn{
+    background:#e50914;
+
+    color:white;
+}
+
+.play-btn:hover{
+    background:#ff1f2d;
+
+    transform:scale(1.05);
+
+    box-shadow:0 0 20px rgba(229,9,20,0.7);
+}
+
+.similar-btn{
+    background:#222;
+
+    color:white;
+}
+
+.similar-btn:hover{
+    background:#444;
+
+    transform:scale(1.05);
+}
