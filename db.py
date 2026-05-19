@@ -6,8 +6,10 @@ load_dotenv()
 
 MONGO_URI = os.getenv("MONGO_URI")
 
-client = MongoClient(MONGO_URI)
-
+client = MongoClient(
+    os.getenv("MONGODB_URI"),
+    tlsAllowInvalidCertificates=True
+)
 db = client["MovieAppV2"]
 
 users_collection = db['users']
