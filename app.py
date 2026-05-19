@@ -14,6 +14,7 @@ movie_manager = Movie_Manager(df)
 
 @app.route("/")
 def start():
+    print("Strat")
     return redirect(url_for("base"))
 
 
