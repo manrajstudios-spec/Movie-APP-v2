@@ -1,3 +1,1 @@
-touch Procfile
-
-web: python app.py
+web: gunicorn Scripts.app:app

@@ -5,8 +5,8 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
 class Recommendation_Manager:
-    embeded_description_file = "../Data/embeded_overview.npy"
-    embeded_story_file = "../Data/story_genre_keywords.npy"
+    embeded_description_file = "Data/embeded_overview.npy"
+    embeded_story_file = "Data/story_genre_keywords.npy"
 
     def __init__(self,df):
         self.df = df.copy() 

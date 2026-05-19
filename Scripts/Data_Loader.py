@@ -2,7 +2,7 @@ import pandas as pd
 import ast
 
 def return_dataset():
-    df = pd.read_csv("../Data/movie_dataset.csv")
+    df = pd.read_csv("Data/movie_dataset.csv")
     clean_dataset(df)
     return df
 
