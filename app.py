@@ -72,7 +72,7 @@ def register():
         
 @app.route("/base/menu",methods=["POST","GET"])
 def menu():
-    if not session['user_name']:
+    if not session.get('user_name'):
         return redirect(url_for("base"))
     if request.method == "POST":
         options = request.form.get("options")
@@ -116,6 +116,8 @@ def menu():
 
 @app.route("/base/menu/search_name",methods=["POST","GET"])
 def search_name():
+    if not session.get('user_name'):
+        return redirect(url_for("base"))
     if request.method == "POST":
         name = request.form.get("name")
         movies = movie_manager.search_by_movie_name(name)
@@ -127,6 +129,8 @@ def search_name():
 
 @app.route("/base/menu/search_description",methods=["POST","GET"])
 def search_description():
+    if not session.get('user_name'):
+        return redirect(url_for("base"))
     if request.method == "POST":
         des = request.form.get("description")
         movies = movie_manager.search_by_description(des)
@@ -138,6 +142,8 @@ def search_description():
 
 @app.route("/base/menu/filter",methods=["POST","GET"])
 def filter():
+    if not session.get('user_name'):
+        return redirect(url_for("base"))
     if request.method == "POST":
         selected_genres = request.form.getlist("genres")
         rating = request.form.get("rating")
@@ -154,6 +160,8 @@ def filter():
 
 @app.route("/base/menu/list_movies",methods=["POST","GET"])
 def list_movies():
+    if not session.get('user_name'):
+        return redirect(url_for("base"))
     movie_ids = session.get("movie_ids")
     movies = df[df["id"].isin(movie_ids)]
 
@@ -167,6 +175,8 @@ def list_movies():
 
 @app.route("/base/menu/watch_movie",methods=["POST","GET"])
 def watch_movie():
+    if not session.get('user_name'):
+        return redirect(url_for("base"))
     movie = df[df['id'] ==  session["movie_id"]]
     movie_dict = movie.iloc[0].to_dict()
 
@@ -191,6 +201,8 @@ def watch_movie():
 
 @app.route("/base/menu/watch_movie/review",methods=["POST","GET"])
 def review():
+    if not session.get('user_name'):
+        return redirect(url_for("base"))
     movie = df[df['id'] ==  session["movie_id"]]
     movie_dict = movie.iloc[0].to_dict()
 
