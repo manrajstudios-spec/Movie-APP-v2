@@ -117,3 +117,15 @@ body{
         transform:translateY(0px);
     }
 }
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #888;
+    font-size: 12px;
+    padding: 8px;
+    z-index: 999;
+}
