@@ -10,7 +10,9 @@ class Recommendation_Manager:
 
     def __init__(self,df):
         self.df = df.copy() 
+        print("Before Load")
         self.model = SentenceTransformer("all-MiniLM-L6-v2")
+        print("After Load")
         self.load_embeddings()
         
     def get_embeded_text(self,to_embed):
@@ -25,6 +27,7 @@ class Recommendation_Manager:
 
         self.embeded_discription = np.load(self.embeded_description_file)
         self.story_embed = np.load(self.embeded_story_file)
+        print("Embeddings Loaded")
 
     def compare_keywords(self,compare,k=10):
         compare = self.get_embeded_text([compare])
