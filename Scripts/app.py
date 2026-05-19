@@ -1,9 +1,10 @@
 from flask import Flask, request, redirect, render_template,url_for,flash,session
 from db import users_collection
-from User_Saving import login_user,register_user,return_user,get_previous_watches,get_watchlist,add_to_watched,add_to_watchlist
+from User_Saving import login_user,register_user,return_user,get_previous_watches,get_watchlist,add_to_watched,add_to_watchlist,watched_exists,watchlist_exists
 from Data_Loader import return_dataset
 from Movie_Manager import Movie_Manager
 import webbrowser as wb
+import os
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = "Manraj"
@@ -26,7 +27,6 @@ def base():
             return redirect(url_for("login"))
         else:
             return redirect(url_for("register"))
-            print("register")
 
     return render_template("base.html")
 
@@ -69,9 +69,6 @@ def register():
         
 @app.route("/base/menu",methods=["POST","GET"])
 def menu():
-    user_name = session.get("user_name")
-    session.clear()
-    session['user_name'] = user_name
     if request.method == "POST":
         options = request.form.get("options")
         movies = None
@@ -83,16 +80,30 @@ def menu():
             case "filter":
                 return redirect(url_for("filter"))
             case "recs":
-                watched = get_previous_watches(session.get("user_name"),df=df)
-                movies = movie_manager.based_previous_wacthes(watched)
+                if watched_exists(session.get('user_name')):
+                    watched = get_previous_watches(session.get("user_name"),df=df)
+                    movies = movie_manager.based_previous_wacthes(watched)
+                else:
+                    flash("No movies watched")
+                    return redirect(url_for("menu"))
             case "random":
                 movie = movie_manager.random_movie()
+                session['movie_id'] = int(movie.iloc[0]['id'])
+                return redirect(url_for('watch_movie'))
             case "surprise_me":
-                if get_watchlist(session.get("user_name"),df):
-                    movies = get_watchlist(session.get("user_name"),df)
+                if watchlist_exists(session.get('user_name')):
+                    watchlist = get_watchlist(session.get("user_name"),df)
+                    movies = movie_manager.similar_to_movie(watchlist.iloc[0])
+                else:
+                    flash("No movies in watch later")
+                    return redirect(url_for("menu"))
             case "watchlist":
-                watchlist = get_watchlist(session["user_name"],df=df)
-                movies = watchlist.copy()
+                if watchlist_exists(session.get('user_name')):
+                    watchlist = get_watchlist(session["user_name"],df=df)
+                    movies = watchlist
+                else:
+                    flash("No movies in watch later")
+                    return redirect(url_for("menu"))
 
         session['movie_ids'] = movies["id"].to_list()
         return redirect(url_for("list_movies"))
@@ -184,3 +195,8 @@ def review():
         movie_manager.add_review(session.get("user_name"),int(rating),review,movie_title=movie_dict['title'],movie_id=movie_dict['id'])
 
     return render_template("review.html",movie=movie_dict)
+
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)

@@ -8,10 +8,7 @@ def return_user(user_name,in_dict=False):
 
     if not user_mongo : return False
 
-    user = User_Profile(user_mongo['user_name'],user_mongo['user_password'])
-
-    user.watched = user_mongo['watched']
-    user.watchlist = user_mongo['watchlist']
+    user = User_Profile(user_mongo['user_name'],user_mongo['user_password'],user_mongo['watched'],user_mongo['watchlist'])
     
     if in_dict:
         return user.return_user()
@@ -44,7 +41,7 @@ def register_user(user_name,user_pass):
 
     hashed = bcrypt.hashpw(user_pass.encode(),bcrypt.gensalt()).decode()
 
-    user = User_Profile(user_name,hashed)
+    user = User_Profile(user_name,hashed,[],[])
 
     users_collection.insert_one(user.return_user())
 
@@ -59,26 +56,35 @@ def update_user(user_dict):
                                  }})
 
 import pandas as pd
-def get_previous_watches(user_name,df:pd.DataFrame):
-    user = users_collection.find({"user_name":user_name})
 
-    ids = user["watched"]
-    watched = df.iloc[ids]
-    return watched
+def get_previous_watches(user_name,df:pd.DataFrame):
+    user = users_collection.find_one({"user_name":user_name})
+
+    if user:
+        ids = user["watched"]
+        return df[df["id"].isin(ids)]
 
 def get_watchlist(user_name,df:pd.DataFrame):
-    user = users_collection.find({"user_name":user_name})
+    user = users_collection.find_one({"user_name":user_name})
 
     ids = user["watchlist"]
-    watchlist = df.iloc[ids]
-    return watchlist
+    return df[df["id"].isin(ids)]
+
+
+def watchlist_exists(user_name):
+    user = users_collection.find_one({"user_name":user_name})
+
+    return user['watchlist']
+
+def watched_exists(user_name):
+    user = users_collection.find_one({"user_name":user_name})
+
+    return user['watched']
 
 def add_to_watched(_id,user_name):
-    users_collection.update_one({"user_name":user_name},
-                                       {"$addToSet": {"watched": int(_id)}})
-    users_collection.update_one({"user_name": user_name},{"$pull": {"watchlist": int(_id)}})
+   users_collection.update_one({"user_name": user_name},{"$addToSet": {"watched": int(_id)},"$pull": {"watchlist": int(_id)}})
 
 def add_to_watchlist(_id,user_name):
-    user = users_collection.update_one({"user_name":user_name},
+    users_collection.update_one({"user_name":user_name},
                                        {"$addToSet": {"watchlist": int(_id)}})
     

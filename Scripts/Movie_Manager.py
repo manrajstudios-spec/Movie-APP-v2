@@ -35,7 +35,7 @@ class Movie_Manager:
 
     def filter_movies(self,genres:list,rating=5,vote=True,k=10):
         df:pd.DataFrame = self.df.copy()
-        df = df[df['rating'] >= rating]
+        df = df[df['rating'] >= int(rating)]
         df['genre_score'] = [sum(1 for g in cur if g in genres) for cur in df['genres']]
         df['norm_rating'] = df['rating']/10
         df['norm_genre_score'] = df['genre_score']/(df['genre_score'].to_numpy().max() + (1 if df['genre_score'].to_numpy().max() == 0 else 0))
@@ -56,7 +56,7 @@ class Movie_Manager:
         return self.recommendation_manager.similar_to_X(previous_watches.iloc[-1],k)
     
     def add_review(self,user_name,rating,r,movie_title,movie_id):      
-        movie = review_collection.find_one[{'movie_id':movie_id}]
+        movie = review_collection.find_one({'movie_id':movie_id})
 
         if movie:
             review_collection.update_one({"movie_id": movie_id},{"$push": {"reviews": {"user_name": user_name,"rating": rating,"review": r}}})

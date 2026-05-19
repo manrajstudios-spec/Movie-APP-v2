@@ -7,8 +7,6 @@ def return_dataset():
     return df
 
 def clean_dataset(df:pd.DataFrame):
-    df.rename(columns={'vote_average': 'rating'}, inplace=True)
-
     df['production_countries'] = df['production_countries'].apply(lambda x : ast.literal_eval(x))
     df['production_countries'] = df['production_countries'].apply(lambda x :[g['name'].strip() for g in x if 'name' in g])
 

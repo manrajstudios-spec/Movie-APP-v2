@@ -14,19 +14,25 @@
 
     <div class="menu">
 
-        {% with messages = get_flashed_messages() %}
+        <div class="flash-container">
 
-            {% if messages %}
+            {% with messages = get_flashed_messages() %}
 
-                {% for msg in messages %}
+                {% if messages %}
 
-                    <p>{{ msg }}</p>
+                    {% for msg in messages %}
 
-                {% endfor %}
+                        <div class="flash-msg">
+                            {{ msg }}
+                        </div>
+                    
+                    {% endfor %}
+                    
+                {% endif %}
+                    
+            {% endwith %}
 
-            {% endif %}
-
-        {% endwith %}
+        </div>
 
         <h1>🎬 MOVIE APP</h1>
 
@@ -41,6 +47,25 @@
         </form>
 
     </div>
+
+        <script>
+        
+            setTimeout(() => {
+            
+                const flashes = document.querySelectorAll(".flash-msg");
+            
+                flashes.forEach(flash => {
+                    flash.style.opacity = "0";
+                    flash.style.transform = "translateY(-20px)";
+                
+                    setTimeout(() => {
+                        flash.remove();
+                    }, 500);
+                });
+            
+            }, 3000);
+
+        </script>
 
 </body>
 
