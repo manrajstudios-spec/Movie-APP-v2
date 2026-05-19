@@ -72,6 +72,8 @@ def register():
         
 @app.route("/base/menu",methods=["POST","GET"])
 def menu():
+    if not session['user_name']:
+        return redirect(url_for("base"))
     if request.method == "POST":
         options = request.form.get("options")
         movies = None
