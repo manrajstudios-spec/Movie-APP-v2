@@ -8,22 +8,25 @@ A full stack ML-powered movie discovery and recommendation web app. It features 
 
 ## Screenshots
 Home Page
-<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-01-25" src="https://github.com/user-attachments/assets/548cd1dd-76c0-4887-9366-f6f0ee072683" />
+<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-34-02" src="https://github.com/user-attachments/assets/7677d5f5-9161-403f-9782-d8890543213f" />
+
+Sign Up
+<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-35-38" src="https://github.com/user-attachments/assets/7c75c6db-a840-452b-97e2-899a8a7c8166" />
 
 Sign In
-<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-01-36" src="https://github.com/user-attachments/assets/26757ae3-9c75-4eca-990d-de546b8bbafe" />
+<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-35-48" src="https://github.com/user-attachments/assets/6b86291d-3c4d-4bff-8f0b-224f76caa2d2" />
 
 Menu
-<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-01-44" src="https://github.com/user-attachments/assets/1d914bd1-4844-4a4d-8200-51d852345986" />
+<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-36-04" src="https://github.com/user-attachments/assets/c42ffdce-161e-4de1-afdc-214643e65718" />
 
 List movies
-<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-02-17" src="https://github.com/user-attachments/assets/46da291f-07be-4043-a984-2c45bbb955d1" />
+<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-37-02" src="https://github.com/user-attachments/assets/9eac137d-7da4-4f8d-9307-b4da8d595e86" />
 
 watch movie
-<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-02-21" src="https://github.com/user-attachments/assets/33f901fb-79cf-4b27-9b76-775fd84fa6cb" />
+<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-37-14" src="https://github.com/user-attachments/assets/18d1baa0-cd1e-4e12-9a94-c0bd73472f4c" />
 
 rating page 
-<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-12-17" src="https://github.com/user-attachments/assets/565be95d-2236-4c72-9433-fd9abcd0a5ef" />
+<img width="1920" height="1080" alt="Screenshot From 2026-05-19 16-37-25" src="https://github.com/user-attachments/assets/b4f20daa-5a22-4620-8915-040a8cc4b1cf" />
 
 ---
 
