@@ -12,6 +12,8 @@ app.secret_key = "Manraj"
 df = return_dataset()
 movie_manager = Movie_Manager(df)
 
+print("loaded")
+
 @app.route("/")
 def start():
     print("Strat")
