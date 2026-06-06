@@ -5,9 +5,13 @@ from Data_Loader import return_dataset
 from Movie_Manager import Movie_Manager
 import webbrowser as wb
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
+
+session_key = os.getenv("session")
 app = Flask(__name__, template_folder="templates")
-app.secret_key = "Manraj"
+app.secret_key = session_key
 
 df = return_dataset()
 movie_manager = Movie_Manager(df)
